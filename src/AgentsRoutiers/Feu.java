@@ -2,27 +2,11 @@ package AgentsRoutiers;
 
 import GuiSimuTrafic.Parametres;
 import Village.ElementFeu;
- /*************************************************************************
- LE FEU EST CARACTERISE PAR : 
- ----------------------------------
- >> son etat : "vert", "orange","rouge" 
- >> la duree de chacun de ses etat: dureeVert, dureeOrange, dureeRouge 
- 
- REMARQUE : 
- ----------
- Le feu a pour seul comportement celui de changer d'etat ET de signaler 
- au carrefour le comportement associe a cet etat. 
- Le feu n'a donc pas de comportement de communication avec les autres elements
- routier excepte le carrefour.  
- 
- *************************************************************************/
- 
+
 /**
- * @author Naji kawtar & Soukayna etalbi
- *
- */
-
-
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
 
 public class Feu extends Thread{
 

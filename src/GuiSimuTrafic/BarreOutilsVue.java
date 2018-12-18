@@ -2,6 +2,7 @@ package GuiSimuTrafic;
 
 
 import GUI.*;
+
 import javax.swing.*;
 
 import Village.ElementVillage;
@@ -9,14 +10,11 @@ import Village.ElementVillage;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 /**
 *
-* <p>Title: maBarreOutils</p>
-* <p>Description: etend JPanel et range une barre de menu </p>
-* @author Naji kawtar & Soukayna etalbi
-* @version 1.0
-* <p>EtatActuel : FONCTIONNEL & EN COURS D'AMELIORATION POUR L'AGENCEMENT GRAPHIQUE</P>
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
 */
 
 public class BarreOutilsVue extends JPanel{

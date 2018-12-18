@@ -10,11 +10,9 @@ import javax.swing.JPanel;
 
 /**
 *
-* <p>Title: SimuTrafic</p>
-* <p>Description: Classe principale qui cr?e l'IHM </p>
-* @author Naji kawtar & Soukayna etalbi
-* @version 1.0
-* <p> Date: 15/01/2018 </p>
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
 */
 
 public class SimuTrafic extends JFrame {

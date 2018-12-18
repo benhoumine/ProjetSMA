@@ -6,13 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- *
- * <p>Title: BarreTitre</p>
- * <p>Description: cr?ation d'une barre de titre</p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- * ETAT: FONCTIONNEL MAIS ? AMELIORER
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 
 public class BarreTitre extends JPanel{
 
@@ -24,7 +22,7 @@ public class BarreTitre extends JPanel{
   private ElementVillage leVillage = null;
   
   /**
-   * Action ex?cut? lorsque l'on clique sur le bouton "simuler/cr?er"
+   * Action exécuté lorsque l'on clique sur le bouton "simuler/créer"
    */
 
   public ActionListener simulerListener = new ActionListener(){
@@ -45,7 +43,7 @@ public class BarreTitre extends JPanel{
     this.setBackground(Parametres.couleurFond);
 
     etatVillage = new JLabel("Simuler");
-    labelTitre = new JLabel("Simulateur d'un r?seau routier");
+    labelTitre = new JLabel("Simulateur d'un réseau routier");
     simulerCreer = new JButton();
     simulerCreer.add(etatVillage);
     simulerCreer.addActionListener(simulerListener);

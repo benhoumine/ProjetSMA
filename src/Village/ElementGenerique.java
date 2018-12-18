@@ -1,9 +1,13 @@
 package Village;
 
 /**
- * @author Naji kawtar & Soukayna etalbi
- * 
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
+
 public abstract class ElementGenerique {
 	
 }

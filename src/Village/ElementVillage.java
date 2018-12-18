@@ -5,9 +5,14 @@ import java.util.*;
 import AgentsRoutiers.Village;
 import GuiSimuTrafic.*;
 
+
 /**
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ElementVillage {
 	
 	private Vector listeCarrefours = new Vector();

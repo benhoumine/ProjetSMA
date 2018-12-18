@@ -3,9 +3,9 @@ import Village.*;
 import Gestionnaire.*;
 
 /**
- * @author Naji kawtar & Soukayna etalbi
- * 
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
 public abstract class Carrefour {
 	
 	/*---------------------------------------------------------

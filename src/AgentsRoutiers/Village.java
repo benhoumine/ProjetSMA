@@ -1,5 +1,9 @@
 
 package AgentsRoutiers;
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
 
 import Gestionnaire.*;
 import GuiSimuTrafic.Parametres;

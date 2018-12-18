@@ -3,6 +3,13 @@ package GuiSimuTrafic;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class Parametres {
 
 	// Booleen d'affichage des messages en console.

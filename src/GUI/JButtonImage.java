@@ -3,13 +3,11 @@ package GUI;
 import javax.swing.* ;
 
 /**
- *
- * <p>Title: JButtonImage</p>
- * <p>Description: bouton "?tendu", opaque, transparent ? bords transparent
- *  --> affiche une image </p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class JButtonImage extends JButton{
 
 

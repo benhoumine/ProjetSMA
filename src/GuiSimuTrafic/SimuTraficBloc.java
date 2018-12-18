@@ -5,9 +5,12 @@ import java.awt.*;
 import Village.*;
 
 /**
- * @author BENHOUMINE Abdelkhalek
- *
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class SimuTraficBloc extends JButton {
 	
 	private String etat = "blank"; /* D?finit l'?tat du Bloc */

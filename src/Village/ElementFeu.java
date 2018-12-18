@@ -8,9 +8,14 @@ import javax.swing.JLayeredPane;
 import GuiSimuTrafic.Parametres;
 import GuiSimuTrafic.SimuTraficBloc;
 
+
 /**
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ElementFeu {
 
 	

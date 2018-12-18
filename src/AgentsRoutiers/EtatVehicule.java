@@ -1,13 +1,11 @@
 
 
 package AgentsRoutiers;
+
 /**
- *
- * <p>Titre: Etat D'un Vehicule </p>
- * <p>Description: Permet de connaitre certaines informations sur un vehicule</p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
 
 public class EtatVehicule {
 

@@ -4,15 +4,22 @@ import javax.swing.*;
 
 import GuiSimuTrafic.Parametres;
 import GuiSimuTrafic.SimuTraficBloc;
+
 /**
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ElementVehicule extends JLabel {
 
 	public static final int VOITURE_NORMALE_0 = 0;
 	public static final int VOITURE_NORMALE_1 = 1;
 	public static final int VOITURE_POMPIERS  = 2;
 	public static final int VOITURE_POLICE    = 3;
+	public static final int MOTOR    = 4;
+
 	
 	public static final int DIRECTION_VERTICAL = 0;
 	public static final int DIRECTION_HORIZONTALE = 1;

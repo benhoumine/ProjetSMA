@@ -51,7 +51,10 @@
 *******************************************************************************/
 
 package AgentsRoutiers;
+import java.awt.Frame;
 import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import Gestionnaire.*;
 import Village.*;
@@ -441,13 +444,28 @@ public class RouteD extends Thread{
     	
         	
     		// Affichage graphique : 
+    		//Pour Ajouter vehicule
     		if(Parametres.debug) System.out.println("ROUTE "+this.identite+" 	:	Ajout de la voiture " + voiture.getID() + " dans le sens " + (1-voiture.getVoie()));
-    		elementGraphique.ajouterVehicule(1-voiture.getVoie(), ElementVehicule.VOITURE_NORMALE_1);
+    		/*Object[] possibilities = {"0", "1", "2"};
+  			String s = (String)JOptionPane.showInputDialog(
+  			                    new Frame(),
+  			                    "Complete the sentence:\n",
+  			                    "Customized Dialog",
+  			                    JOptionPane.PLAIN_MESSAGE,
+  			                    null,
+  			                    possibilities,
+  			                    "1");
+  			int typeVehicule =  Integer.parseInt(s);
+  			
+    		elementGraphique.ajouterVehicule(1-voiture.getVoie(),typeVehicule);*/
 
+    		elementGraphique.ajouterVehicule(1-voiture.getVoie(), ElementVehicule.VOITURE_NORMALE_0);
+    		
     		
     	} else {
     		// 1Bis- on n'a pas pu faire entrer la voiture sur la route
-    		//       on le signal au carrefour si c'est lui qui l'a fait rentrer 
+    		//       on le signal au carrefour si c'est lui qui l'a fait rentrer
+    		
     		if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
     			if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Impossible de faire entrer la voiture "+voiture.getID());
         		this.messageAEnvoyer = new Message(11, etatRouteActu); 

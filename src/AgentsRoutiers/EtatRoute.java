@@ -1,5 +1,12 @@
 
 package AgentsRoutiers;
+
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
+
+
 public class EtatRoute {
 
     private int identite ;

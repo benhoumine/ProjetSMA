@@ -10,9 +10,12 @@ import GuiSimuTrafic.Parametres;
 import GuiSimuTrafic.SimuTraficBloc;
 
 /**
- * @author Naji kawtar & Soukayna etalbi
- *
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ElementRoute extends ElementGenerique {
 
 	private static final int TAILLE_BORDS = 20;

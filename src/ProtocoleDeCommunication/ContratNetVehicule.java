@@ -11,9 +11,12 @@ import jade.lang.acl.MessageTemplate;
 import jade.proto.ContractNetResponder;
 
 /**
- *
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ContratNetVehicule extends ContractNetResponder{
     GestMsgVoiture gestMsgVoiture=null;
     GestMsgRoute gestMsgRoute=null;

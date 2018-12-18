@@ -3,13 +3,11 @@ package GUI;
 import javax.swing.*;
 
 /**
- *
- * <p>Title: JLabelOutil </p>
- * <p>Description: etiquette "?tendue" avec une image de 195*55 </p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
-
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class JLabelOutil extends JLabel{
 
   private ImageIcon imageRoute;

@@ -1,58 +1,14 @@
-/*****************************************************************************
- Cette classe permet de creer un message identifie par "msgi" comportant un
- objet choisi par l'utilisateur. Cela permet de donner des informations sur
- l'etat d'un vehicule, d'une route ou bien d'un carrefour.  chaque message
- a une signification respectant le cahier des charges mis en place.
-
- ------------------------------------------------------MSG ENVOYE PAR ROUTE----
- msg0  : avancer
- msg1  : tu approches d'une voiture
- msg2  : une voiture s'approche de toi
- msg3  : tu approches d'une voiture et une voiture s'approche de toi
- msg4  : tu peux entrer sur la route
- msg5  : boom
- msg6  : arret obligatoire
- msg7  : tu approches d'un carrefour
- msg8  : ...Fin de route...
- msg9  : donner voiture?
- msg10 : faire entrer une voiture
- msg11 : refuser voiture
- msg12 : envoyer mesures
- ----------------------------------------------------MSG ENVOYE PAR CARREFOUR--
- msg13 : refus de voiture
- msg14 : accepter voiture
- msg15 : demander de faire rentrer une voiture sur la route
- msg16 : voie possible
- msg17 : quelle voie
- msg18 : arret obligatoire
- msg19 : envoyer mesure
- ----------------------------------------------------MSG ENVOYE PAR VOITURE----
- msg20 : entrer sur un carrefour
- msg21 :
- msg22 : changer de files
- msg23 : je m'arrete
- msg24 : j'avance
- msg25 : je suis mort
- msg26 : indiquer ma position
- msg27 : avance-toi
- msg28 : arrete-toi
- msg29 : random choix voies
---------------------------------------------------MSG ENVOYE PAR L'UTILISATEUR--
- msg30 : generer une nouvelle voiture en debut d'une route
- 
- *********************************************************************************/
 
 package Gestionnaire;
 import java.util.Vector;
 
 import GuiSimuTrafic.Parametres;
-
 /**
- * <p>Titre: Message</p>
- * <p>Description: sert pour le dialogue entre les acteurs du reseau routier</p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 
 public class Message {
 

@@ -5,10 +5,13 @@ import jade.core.Runtime;
 import jade.util.ExtendedProperties;
 import jade.util.leap.Properties;
 import jade.wrapper.ControllerException;
+
+
 /**
- *
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
+
 public class MainConteneur {
     
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class MainConteneur {
             Runtime rt=Runtime.instance();
             Properties p=new ExtendedProperties();
             /*Creer  interface graphique du Jade*/
-            // p.setProperty("gui","true");
+             p.setProperty("gui","true");
             /*Creer   profile qui contien les proprietes du conteur principal du Jade*/
             ProfileImpl impl=new ProfileImpl(p);
             /*Creer  conteneur principale du Jade*/

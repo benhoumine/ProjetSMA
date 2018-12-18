@@ -17,16 +17,11 @@ import java.awt.event.MouseListener;
 import java.util.*;
 
 /**
- *
- * <p>Title: ReseauRoutier</p>
- * <p>Description: [A VENIR] </p>
- * @author 
- kawtar & Soukayna etalbi
- * @version 1.0
- * Etat: EN COURS DE REALISATION : POUR TOI MON CHER ;)
- */
-
-
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class ReseauRoutier extends JScrollPane {
 
 	Vector listeCases = new Vector();
@@ -212,6 +207,9 @@ public class ReseauRoutier extends JScrollPane {
   				zoomer(source, false);
   			}
   		} else if (Parametres.isUsed == "voiture") {
+  			
+
+  		
   			if (source.getElementVillage() instanceof ElementCarrefour) {
   				leVillage.ajouterVehicule((ElementCarrefour) source.getElementVillage());
   			}

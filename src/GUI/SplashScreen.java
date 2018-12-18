@@ -13,11 +13,11 @@ import javax.swing.JProgressBar;
 import GuiSimuTrafic.Parametres;
 
 /**
- * @author Naji kawtar & Soukayna etalbi
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class SplashScreen extends JFrame {
     
 	JProgressBar progress; // pour creer une barre de chargement

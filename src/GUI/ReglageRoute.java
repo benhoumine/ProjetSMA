@@ -1,5 +1,12 @@
 package GUI;
 
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;

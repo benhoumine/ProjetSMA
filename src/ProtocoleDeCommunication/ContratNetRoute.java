@@ -8,9 +8,12 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- *
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
+
 public class ContratNetRoute extends ContractNetInitiator{
     
     public ContratNetRoute(Agent a, ACLMessage cfp) {

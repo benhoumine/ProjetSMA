@@ -13,9 +13,9 @@ import jade.lang.acl.ACLMessage;
 import java.util.Date;
 
 /**
- *
- * @author Naji kawtar & Soukayna etalbi
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
 public class vehicule extends Agent{
     private Carrefour carrefour;
     @Override

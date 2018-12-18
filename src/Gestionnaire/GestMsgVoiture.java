@@ -5,10 +5,9 @@ import GuiSimuTrafic.Parametres;
 
 /**
 *
-* <p>Titre: Gestionnaire de Messages Pour les voitures</p>
-* <p>Description: Permet de gerer l'envoie et l'acces aux messages pour les voitures</p>
-* @author Naji kawtar & Soukayna etalbi
-* @version 1.0
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
 */
 public class GestMsgVoiture {
 	

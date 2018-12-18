@@ -3,10 +3,10 @@ package AgentsRoutiers;
 import GuiSimuTrafic.Parametres;
 
 /**
- * Voie caract�ris� par un tableau de dimension fini qui permet de conna�tre la position
- * des voitures sur la route
- * @author Naji kawtar & Soukayna etalbi 
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+*/
+
 public class Voie {
 	
 	private EtatVehicule voie[] ;

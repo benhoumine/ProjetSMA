@@ -1,5 +1,10 @@
 package GUI;
-
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 import java.awt.GridLayout;
 import javax.swing.JSpinner;
 import java.awt.event.ActionEvent;

@@ -37,17 +37,12 @@ import Gestionnaire.GestMsgVoiture;
 import Gestionnaire.Message;
 import GuiSimuTrafic.Parametres;
 
-
 /**
- *
- * <p>Titre	: 	Voiture </p>	
- * @author Naji kawtar & Soukayna etalbi
- * @version 	1.0
- * ETAT    	: 	les comportements 'AVANCER' ET 'ARRET OBLIGATOIRE' fonctionnent
- * A FAIRE 	: 	les comportements <Fin route> et autres 
- */
-
-
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class Voiture extends Thread{
 
     /*------------------------------------------------

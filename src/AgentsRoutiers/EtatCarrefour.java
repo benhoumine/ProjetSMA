@@ -1,12 +1,12 @@
 
 package AgentsRoutiers;
+
 /**
- *
- * <p>Titre: EtatCarrefour</p>
- * <p>Description: permet de conna?tre l'?tat d'un carrefour</p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 
 public class EtatCarrefour {
 

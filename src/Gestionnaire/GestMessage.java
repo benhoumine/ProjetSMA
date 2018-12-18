@@ -4,14 +4,12 @@ import java.util.*;
 
 import GuiSimuTrafic.Parametres;
 
-
 /**
- *
- * <p>Titre: Gestionnaire de Messages </p>
- * <p>Description: Permet de g?rer l'envoie et l'acc?s aux messages pour les routes, les voitures et les carrefours </p>
- * @author Naji kawtar & Soukayna etalbi
- * @version 1.0
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 
 public class GestMessage {
 

@@ -3,11 +3,12 @@ import AgentsRoutiers.CarrefourAFeux;
 import javax.swing.JLayeredPane;
 
 import GuiSimuTrafic.SimuTraficBloc;
-
 /**
- * @author Naji kawtar & Soukayna etalbi
- *
- */
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* 
+* 
+*/
 public class ElementCarrefour extends ElementGenerique {
 
 	private SimuTraficBloc elementSimu;

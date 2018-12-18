@@ -32,9 +32,12 @@ import GuiSimuTrafic.Parametres;
 import Village.*;
 import java.util.*;
 /**
- * @author Naji kawtar & Soukayna etalbi
  *
+ * @author BENHOUMINE Abdelkhalek & BANE Mamadou
+ * 
+ * 
  */
+
 public class CarrefourAFeux extends Carrefour {
 
 	/*-----------------------------------------------------------------------
