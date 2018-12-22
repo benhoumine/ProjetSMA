@@ -17,6 +17,7 @@ public class Parametres {
 	
   public static String outilParDefaut = "select" ;
   public static String isUsed = outilParDefaut ;
+  public static int TypeVoitureParDefaut = 0 ; 
 
   public static Color couleurFond = new Color( 255, 255, 255) ;
   public static Font police = new Font("Serif", Font.PLAIN, 14);

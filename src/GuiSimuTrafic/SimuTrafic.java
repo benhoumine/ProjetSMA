@@ -5,6 +5,7 @@ import GUI.*;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -81,7 +82,18 @@ public class SimuTrafic extends JFrame {
 
     setContentPane(conteneurPrincipal);
     leSplash.avancerProgress("Initilisation terminee");
-
+//    
+//    String s = (String)JOptionPane.showInputDialog(
+//              this,
+//              "Bonjour Cette Application Est Developpé par BENHOUMINE Abdelkhalek ET BANE MAMADOU \n"
+//              + "D'aprés le clique sur ok , On vous donne l'accés pour utiliser l'application ",
+//              "Customized Dialog",
+//              JOptionPane.PLAIN_MESSAGE,
+//              null,
+//              null,
+//              "1");
+    
+   
     this.pack();    
     this.setLocation(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width/2 - this.getWidth()/2, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height/2 - this.getHeight()/2);
     this.setVisible(true);

@@ -207,9 +207,7 @@ public class ReseauRoutier extends JScrollPane {
   				zoomer(source, false);
   			}
   		} else if (Parametres.isUsed == "voiture") {
-  			
-
-  		
+  				System.out.println("Voila une voiture a été instancié ");
   			if (source.getElementVillage() instanceof ElementCarrefour) {
   				leVillage.ajouterVehicule((ElementCarrefour) source.getElementVillage());
   			}
@@ -246,8 +244,7 @@ public class ReseauRoutier extends JScrollPane {
   	return b[0] && b[1] && b[2] && b[3];
 
   	}
-  	
-  	
+   	
   	private void zoomer(SimuTraficBloc centre, boolean zoomin) {
   		
   		if(zoomin) {  			  	

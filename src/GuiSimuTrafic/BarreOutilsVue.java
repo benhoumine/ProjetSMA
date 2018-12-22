@@ -123,7 +123,7 @@ private class BoutonOutilListener implements ActionListener {
     	Parametres.isUsed = "carrefour" ;
     	if(Parametres.debug)
     		System.out.println("carrefour");
-    } else if (evenement.getSource() == mesBoutons[6]) {
+    } else if (evenement.getSource() == mesBoutons[6]) {   	
     	Parametres.isUsed = "voiture" ;
     	if(Parametres.debug)
     		System.out.println("voiture");
