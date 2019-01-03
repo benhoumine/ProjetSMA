@@ -5,6 +5,8 @@ import GUI.*;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,13 +23,17 @@ public class SimuTrafic extends JFrame {
   private FlowLayout gestionPrincipal = null;
   private JPanel conteneurPrincipal = null ;
   private SplashScreen leSplash;
-  
+  private JMenuBar menu;
   protected int largeurFen = 800 ;
   protected int hauteurFen = 550 ;
 
   public SimuTrafic() {
 
-    super("PROJET SYSTEME MULTI-AGENTS");
+    super("PROJET SYSTEME MULTI-AGENTS BENHOUMINE/Bane - ISIMA F2");
+    this.menu  = new JMenuBar();
+    menu.add(new JMenu("Information"));
+    menu.add(new JMenu("Aide"));
+    this.setJMenuBar(menu);
     leSplash = new SplashScreen();
     leSplash.avancerProgress("Chargement de l'environnement...");
     this.setBackground(Parametres.couleurFond);
@@ -82,17 +88,7 @@ public class SimuTrafic extends JFrame {
 
     setContentPane(conteneurPrincipal);
     leSplash.avancerProgress("Initilisation terminee");
-//    
-//    String s = (String)JOptionPane.showInputDialog(
-//              this,
-//              "Bonjour Cette Application Est Developpé par BENHOUMINE Abdelkhalek ET BANE MAMADOU \n"
-//              + "D'aprés le clique sur ok , On vous donne l'accés pour utiliser l'application ",
-//              "Customized Dialog",
-//              JOptionPane.PLAIN_MESSAGE,
-//              null,
-//              null,
-//              "1");
-    
+ 
    
     this.pack();    
     this.setLocation(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width/2 - this.getWidth()/2, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height/2 - this.getHeight()/2);

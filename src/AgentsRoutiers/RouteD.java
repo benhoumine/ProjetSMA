@@ -459,8 +459,9 @@ public class RouteD extends Thread{
   			
     		elementGraphique.ajouterVehicule(1-voiture.getVoie(),typeVehicule);*/
 
-    		elementGraphique.ajouterVehicule(1-voiture.getVoie(), ElementVehicule.VOITURE_NORMALE_0);
-    		
+    		//elementGraphique.ajouterVehicule(1-voiture.getVoie(), ElementVehicule.VOITURE_NORMALE_0);
+    		elementGraphique.ajouterVehicule(1-voiture.getVoie(),Parametres.TypeVoitureParDefaut);
+
     		
     	} else {
     		// 1Bis- on n'a pas pu faire entrer la voiture sur la route

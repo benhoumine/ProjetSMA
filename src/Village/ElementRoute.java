@@ -123,7 +123,6 @@ public class ElementRoute extends ElementGenerique {
 		vehicules[sens].addLast(nouveauVehicule);
 		if(Parametres.debug) System.out.println("Ajout de Voiture dans le sens :" +sens +"position = "+ vehicules[sens].size());
 		nouveauVehicule.setLocation(location);
-		
 	}
 	/**
 	 * Permet de r?cup?rer le premier v?hicule de la liste

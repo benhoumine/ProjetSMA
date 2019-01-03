@@ -91,6 +91,9 @@ private class BoutonOutilListener implements ActionListener {
   // gestion des ?venements de boutons
   public void actionPerformed (ActionEvent evenement){
 
+	  //Click sur Simuler 
+	  
+	  
   	if (evenement.getSource() == mesBoutons[0]) {
       leVillage = new ElementVillage(reseau);
   	  leVillage.genererStructureSimulation();
@@ -124,10 +127,15 @@ private class BoutonOutilListener implements ActionListener {
     	if(Parametres.debug)
     		System.out.println("carrefour");
     } else if (evenement.getSource() == mesBoutons[6]) {   	
-    	Parametres.isUsed = "voiture" ;
+    	 	//Au moment du click sur le button  	 	
+           	Parametres.isUsed = "voiture" ;
     	if(Parametres.debug)
     		System.out.println("voiture");
     } else if (evenement.getSource() == mesBoutons[7]) {
+    	new JOptionPane().showMessageDialog(null, "Cette Application est developpé par BENHOUMINE Abdelkhalek et mamado bane"
+    			+ " Dans le Cadre du projet De SMA (ISIMA) Sous l'encadrement Du Mr David HILL\n"
+    			+ " Cette application sera disponible sur le git \n"
+    			+ " Le nom du groupe doit etre mentionner d'apres chaque utilisation de cette application", "Attention", JOptionPane.WARNING_MESSAGE);
     	Parametres.isUsed = "essence";
     	if(Parametres.debug)
     		System.out.println("Essence");

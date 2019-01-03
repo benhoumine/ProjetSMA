@@ -87,7 +87,7 @@ public class Voiture extends Thread{
     // pour recueillir les informations de la route
     private EtatRoute routeActuelle = null;
 
-    // g�n�rateur al�atoire pour les d�cisions 
+    // générateur aleatoire pour les decisions 
 	private Random alea = new Random() ; 
 
 	

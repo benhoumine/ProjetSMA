@@ -207,7 +207,18 @@ public class ReseauRoutier extends JScrollPane {
   				zoomer(source, false);
   			}
   		} else if (Parametres.isUsed == "voiture") {
-  				System.out.println("Voila une voiture a été instancié ");
+  			 String[] sexe = {"Course", "Simple"};
+  		    JOptionPane jop = new JOptionPane();
+  		    int rang = jop.showOptionDialog(null, 
+  		      "Veuillez indiquer le Type de voiture désirée !",
+  		      "Choisissez votre type!",
+  		      JOptionPane.YES_NO_CANCEL_OPTION,
+  		      JOptionPane.QUESTION_MESSAGE,
+  		      null,
+  		      sexe,
+  		      sexe[1]);
+  			Parametres.TypeVoitureParDefaut = rang; 
+  			
   			if (source.getElementVillage() instanceof ElementCarrefour) {
   				leVillage.ajouterVehicule((ElementCarrefour) source.getElementVillage());
   			}
