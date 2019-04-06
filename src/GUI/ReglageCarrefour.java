@@ -1,10 +1,5 @@
 package GUI;
-/**
-*
-* @author BENHOUMINE Abdelkhalek & BANE Mamadou
-* 
-* 
-*/
+
 import java.awt.GridLayout;
 import javax.swing.JSpinner;
 import java.awt.event.ActionEvent;
@@ -16,7 +11,14 @@ import javax.swing.WindowConstants;
 
 import Village.ElementCarrefour;
 
+/**
+*
+* @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* <p>Classe pour faire les reglages du carrefour , tel que la vitesse et la duree du feu
+* 
+*/
 public class ReglageCarrefour extends javax.swing.JFrame {
+	
 	private JLabel jLabelID;
 	private JLabel jLabelIDText;
 	private JSpinner jSpinnerRouge;

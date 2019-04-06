@@ -51,25 +51,34 @@
 *******************************************************************************/
 
 package AgentsRoutiers;
-import java.awt.Frame;
 import java.util.Vector;
 
-import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import Gestionnaire.*;
 import Village.*;
+
 import GuiSimuTrafic.*;
 
 
 public class RouteD extends Thread{
-
+	private Logger logger = LoggerFactory.getLogger(RouteD.class);
+	
     private int identite;
     private int vitesseAutorisee ;
     private int longueur ;
     private int direction ;  		// 0 = axe Horizontal , 1 = axe Vertical
     private int capaciteVehicules ; 
-    public  int extremite0 = 0; 	// 0=libre, 1=bloquee 
-    public  int extremite1 = 0; 	// 0=libre, 1=bloquee
+    
+    /*
+     *	 pour simuler le feu rouge 
+     * extremite0 :  // 0=libre, 1=bloquee
+     * extremite1 :  // 0=libre, 1=bloquee
+     */
+    public  int extremite0 = 0; 	 
+    public  int extremite1 = 0; 	
+    
     private String etat = "ok";  // etat de la route: sature, etc...
     private Voie[] lesVoies = new Voie[2];
     private EtatRoute etatRouteActuel = null ;    
@@ -196,20 +205,20 @@ public class RouteD extends Thread{
         	
         	// determiner le message 
         	message = (String)msgComplet.elementAt(0);
-        	if(Parametres.debug) System.out.println("ROUTE "+this.identite+ "		:	Message recu : " + message);
+        	if(Parametres.debug) logger.debug("ROUTE "+this.identite+ "		:	Message recu : " + message);
         	
         	// 3- TRAITER LES CAS POSSIBLES  
         	
         	if (message == "msg15"){
         		// faire entrer une voiture venant d'un carrefour 
-        		if(Parametres.debug) System.err.println("ROUTE "+this.getID()+"		: 	Msg15 recu"); 
+        		if(Parametres.debug) logger.error("ROUTE "+this.getID()+"		: 	Msg15 recu"); 
         		faireEntrerVehicule(msgComplet);
         	
         	
         	} else if (message == "msg20"){
         		// voiture veut entrer sur carrefour
         		donnerVoitureCarrefour(msgComplet);
-        		if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Demander au carrefour de faire entrer une voiture");
+        		if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Demander au carrefour de faire entrer une voiture");
 
         		
         	} else if (message == "msg13"){
@@ -256,7 +265,7 @@ public class RouteD extends Thread{
     public void envoyerMessageVoiture(Message msg, int idVehicule){
         synchronized(gestMsgVoiture){
         	gestMsgVoiture.ajouterMsg(idVehicule, msg); 
-        	if(Parametres.debug) System.out.println("ROUTE "+ this.identite+ "	:	msg est " + msg.getMessage().elementAt(0)+" envoye a voiture "+idVehicule);
+        	if(Parametres.debug) logger.debug("ROUTE "+ this.identite+ "	:	msg est " + msg.getMessage().elementAt(0)+" envoye a voiture "+idVehicule);
         }
     }
     
@@ -269,7 +278,7 @@ public class RouteD extends Thread{
     public  void envoyerMessageCarrefour(Message msg, int idCarrefour, int direction){
         synchronized(gestMsgCarrefour){
         	gestMsgCarrefour.ajouterMsg(idCarrefour, direction, msg); 
-        	if(Parametres.debug) System.out.println("ROUTE "+ this.identite+ "	:	Envoie msg :" + msg.getMessage().get(0)+"au carrefour :"+idCarrefour); 
+        	if(Parametres.debug) logger.debug("ROUTE "+ this.identite+ "	:	Envoie msg :" + msg.getMessage().get(0)+"au carrefour :"+idCarrefour); 
         }
     }
     
@@ -278,7 +287,7 @@ public class RouteD extends Thread{
      */
     private Message attendreMsg() {
     Message msgRecu = null ; 
-    if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Attente d'un message");
+    if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	Attente d'un message");
     do{
     	synchronized(gestMsgRoute){
     		msgRecu = (Message) gestMsgRoute.recupMsg(this.identite);
@@ -288,7 +297,7 @@ public class RouteD extends Thread{
                 Thread.sleep(100);
             }
             catch (InterruptedException e) {
-            	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	Erreur d'attente d'un message");
+            	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Erreur d'attente d'un message");
             }
         }
     } while(msgRecu == null);
@@ -312,9 +321,20 @@ public class RouteD extends Thread{
      *----------------------------------------------------------*/
     
     /**
-     * COMPORTEMENT : on fait entrer un vehicule venant d'un carrefour idCarrefour
-     * ou demande par l'utilisateur
+     * COMPORTEMENT : on fait entrer un vehicule venant d'un carrefour idCarrefour ou demande par l'utilisateur
+     * 
      * @param idCarrefour int
+     *
+     */
+    
+    
+    /**
+     * 
+     * 
+     * pour créer une voiture et faure entre le vehicule dans le carrefour 
+     * on va verifier le message reçu s'il est par le carrafour ou bien par la vehicule 
+     * pour meilleur d'adaptation 
+     * @param LeMessage
      */
     private void faireEntrerVehicule(Vector LeMessage){
     	
@@ -329,9 +349,10 @@ public class RouteD extends Thread{
     	Vector vectorMsg = LeMessage ;
         Object objet = vectorMsg.elementAt(1);
         
+        // si l'objet vient de la vehicule
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatVehicule")){
-            
         	// recuperer infos sur la voiture que l'utilisateur fait entrer
+        	
             voiture = (EtatVehicule) vectorMsg.elementAt(1);
             etatRouteActu.setEtatVehiculeCourant(voiture);
             voieActu = voiture.getVoie();
@@ -340,11 +361,11 @@ public class RouteD extends Thread{
             } else if (voieActu == 0){
             	extremite = extremite1;
             } else {
-            	if(Parametres.debug) System.err.println("erreur voie actuelle");
+            	if(Parametres.debug) logger.error("erreur voie actuelle");
             }
             
             
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID());
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID());
             this.affichVoiture(etatRouteActu);
         
         
@@ -353,7 +374,7 @@ public class RouteD extends Thread{
         	// recuperer infos sur carrefours: la voiture vient d'un carrefour !
         	idCarrefourActu = ((EtatCarrefour) objet).getID(); 
         	
-        	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Recuperation de l'EtatCarrefour :");        	
+        	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	Recuperation de l'EtatCarrefour :");        	
         	
         	if (idCarrefourActu == carrefourD.identite){
         		// Recuperation du carrefour de debut et de la voiture qui rentre 
@@ -361,7 +382,7 @@ public class RouteD extends Thread{
         		// L'extremite est alors celle du D�but : extremite0 
         		etatCarrefourDebut = (EtatCarrefour)objet ;
         		voiture = etatCarrefourDebut.getVehicSortant();
-        		if(Parametres.debug) System.out.println("ROUTE"+this.identite+" 		:	Voiture "+voiture.getID()+" entre sur la route"+this.identite);
+        		if(Parametres.debug) logger.debug("ROUTE"+this.identite+" 		:	Voiture "+voiture.getID()+" entre sur la route"+this.identite);
         		voiture.setVoie(1);
         		etatRouteActu.setEtatVehiculeCourant(voiture);
         		voieActu = 1 ; 
@@ -374,7 +395,7 @@ public class RouteD extends Thread{
         		// L'extremite est alors celle de Fin : extremite1
         		etatCarrefourFin = (EtatCarrefour)objet ;
         		voiture = etatCarrefourFin.getVehicSortant();
-        		if(Parametres.debug) System.out.println("ROUTE"+this.identite+" 		:	Voiture "+voiture.getID()+" entre sur la route"+this.identite);
+        		if(Parametres.debug) logger.debug("ROUTE"+this.identite+" 		:	Voiture "+voiture.getID()+" entre sur la route"+this.identite);
         		voiture.setVoie(0);
         		etatRouteActu.setEtatVehiculeCourant(voiture);
         		voieActu = 0;
@@ -382,7 +403,7 @@ public class RouteD extends Thread{
         		etatRouteActu.setCarrefourFin(this.etatCarrefourFin);
         	
         	} else {
-        		if(Parametres.debug) System.err.println("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
+        		if(Parametres.debug) logger.error("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
         	}
         }
     	
@@ -394,7 +415,7 @@ public class RouteD extends Thread{
 			this.voiture.setVoie(voieActu); 
 			this.voiture.setLieu("route");
 			this.voiture.setDirection(voiture.getVoieChoisie());
-			if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	La voiture "+voiture.getID()+ " va vers le/la "+voiture.getDirection());
+			if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	La voiture "+voiture.getID()+ " va vers le/la "+voiture.getDirection());
 			this.voiture.setVoieProvenance(this.identite);
 			this.voiture.setEtatActuel(0); // immobile quand on entre...  
 			this.voiture.setPos(1);
@@ -425,7 +446,7 @@ public class RouteD extends Thread{
         	} else if (voieActu == 0) {
         		extremite1 = 1 ;
         	} else {
-        		if(Parametres.debug) System.err.println("ROUTE "+this.getID()+"		: 	Erreur sur l'identite du carrefour"); 
+        		if(Parametres.debug) logger.error("ROUTE "+this.getID()+"		: 	Erreur sur l'identite du carrefour"); 
         	}
 
         	if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
@@ -437,15 +458,15 @@ public class RouteD extends Thread{
         	// 3.3- on fait entrer la voiture sur la route et on signal la voiture
         	etatRouteActu.setEtatVehiculeSuiv(lesVoies[voieActu].vehiculeSuivant(voiture.getIndex()));
         	
-        	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	voiture est sur la voie " + etatRouteActu.getEtatVehiculeCourant().getVoie());
+        	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	voiture est sur la voie " + etatRouteActu.getEtatVehiculeCourant().getVoie());
     		this.messageAEnvoyer = new Message(4 , etatRouteActu);
     		this.envoyerMessageVoiture(messageAEnvoyer, voiture.getID()); 
-    		if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Envoie du msg4 a voiture " + voiture.getID());
+    		if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	Envoie du msg4 a voiture " + voiture.getID());
     	
         	
     		// Affichage graphique : 
     		//Pour Ajouter vehicule
-    		if(Parametres.debug) System.out.println("ROUTE "+this.identite+" 	:	Ajout de la voiture " + voiture.getID() + " dans le sens " + (1-voiture.getVoie()));
+    		if(Parametres.debug) logger.debug("ROUTE "+this.identite+" 	:	Ajout de la voiture " + voiture.getID() + " dans le sens " + (1-voiture.getVoie()));
     		/*Object[] possibilities = {"0", "1", "2"};
   			String s = (String)JOptionPane.showInputDialog(
   			                    new Frame(),
@@ -468,7 +489,7 @@ public class RouteD extends Thread{
     		//       on le signal au carrefour si c'est lui qui l'a fait rentrer
     		
     		if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
-    			if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Impossible de faire entrer la voiture "+voiture.getID());
+    			if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Impossible de faire entrer la voiture "+voiture.getID());
         		this.messageAEnvoyer = new Message(11, etatRouteActu); 
         		this.envoyerMessageCarrefour(messageAEnvoyer, idCarrefourActu, this.direction);	
         	}
@@ -513,7 +534,7 @@ public class RouteD extends Thread{
             etatRouteActu.setEtatVehiculeCourant(voiture);
             etatRouteActu.setEtatVehiculeSortant(voiture);
             this.affichVoiture(etatRouteActu);
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	vehicule sortant : " + voiture.getID());
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	vehicule sortant : " + voiture.getID());
             
             voieActu = voiture.getVoie();
             
@@ -526,10 +547,10 @@ public class RouteD extends Thread{
         	
         	messageAEnvoyer = new Message(9, etatRouteActu);  
         	envoyerMessageCarrefour(messageAEnvoyer,idCarrefourCible, this.direction);
-        	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Msg 9 envoye");
+        	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Msg 9 envoye");
         
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
-        	if(Parametres.debug) System.err.println("Route "+this.identite+"		:	Erreur sur l'objet contenu dans le message 20!! ==> comportement non reconnu");
+        	if(Parametres.debug) logger.error("Route "+this.identite+"		:	Erreur sur l'objet contenu dans le message 20!! ==> comportement non reconnu");
         }
     	
     }
@@ -554,7 +575,7 @@ public class RouteD extends Thread{
         Object objet = vectorMsg.elementAt(1);
         
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatVehicule")){
-        	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	L'objet contenu dans le message n'est pas reconnu pour ce comportement");
+        	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	L'objet contenu dans le message n'est pas reconnu pour ce comportement");
         
         
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
@@ -563,7 +584,7 @@ public class RouteD extends Thread{
         	idCarrefourActu = ((EtatCarrefour) objet).getID(); 
         	
         	if (idCarrefourActu == carrefourD.identite){ 
-        		// La voie concernee est la voie d'o� sortent les voitures pour entrer sur le carrefour 
+        		
         		etatCarrefourDebut = (EtatCarrefour)objet ;
                 voieActu = 0 ; 
         	
@@ -572,7 +593,7 @@ public class RouteD extends Thread{
         		voieActu = 1 ;
         	
         	} else {
-        		if(Parametres.debug) System.err.println("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
+        		if(Parametres.debug) logger.error("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
         	}
         	
         	// on envoie un msg a la voiture pour lui signaler une fin de route
@@ -589,11 +610,11 @@ public class RouteD extends Thread{
             	voiture.setDirection("haut");
             }
             
-            if(Parametres.debug) System.out.println("ROUTE "+this.getID()+"		: 	Voiture "+voiture.getID()+" sur la voie "+voiture.getVoie()+" a l'index "+voiture.getIndex());
+            if(Parametres.debug) logger.debug("ROUTE "+this.getID()+"		: 	Voiture "+voiture.getID()+" sur la voie "+voiture.getVoie()+" a l'index "+voiture.getIndex());
     		etatRouteActu.setEtatVehiculeCourant(voiture);
     		
         	messageAEnvoyer = new Message(8, etatRouteActu); 
-        	if(Parametres.debug) System.out.println("ROUTE "+this.getID()+"		: 	Voie actu : " + voieActu);
+        	if(Parametres.debug) logger.debug("ROUTE "+this.getID()+"		: 	Voie actu : " + voieActu);
         	envoyerMessageVoiture(messageAEnvoyer, lesVoies[voieActu].recupVehicule((this.longueur*4)-1).getID());
         }
     }
@@ -619,7 +640,7 @@ public class RouteD extends Thread{
         Object objet = vectorMsg.elementAt(1);
          
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatVehicule")){
-        	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
+        	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
         
         
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatCarrefour") {
@@ -627,26 +648,26 @@ public class RouteD extends Thread{
         	// recuperer infos sur carrefours
         	idCarrefourActu = ((EtatCarrefour) objet).getID(); 
         	
-        	if(Parametres.debug) System.out.println("ROUTE"+this.identite+"		:	>> id CarrefourF = "+carrefourF.identite); 
-        	if(Parametres.debug) System.out.println("ROUTE"+this.identite+"		:	>> id CarrefourD = "+carrefourD.identite);
-        	if(Parametres.debug) System.out.println("ROUTE"+this.identite+" 		:	>> id CarrefourActu RECU = "+idCarrefourActu);
+        	if(Parametres.debug) logger.debug("ROUTE"+this.identite+"		:	>> id CarrefourF = "+carrefourF.identite); 
+        	if(Parametres.debug) logger.debug("ROUTE"+this.identite+"		:	>> id CarrefourD = "+carrefourD.identite);
+        	if(Parametres.debug) logger.debug("ROUTE"+this.identite+" 		:	>> id CarrefourActu RECU = "+idCarrefourActu);
         	
         	if (idCarrefourActu == carrefourD.identite){
         		etatCarrefourDebut = (EtatCarrefour)objet ;
-        		voieActu = 0 ; // voie par o� sortent les voitures pour entrer sur le prochain carrefour
+        		voieActu = 0 ; // voie ou sortent les voitures pour entrer sur le prochain carrefour
         	
         	} else if (idCarrefourActu == carrefourF.identite) {
         	    etatCarrefourFin = (EtatCarrefour)objet ;
-        		voieActu = 1 ; // voie par o� sortent les voitures pour entrer sur le prochain carrefour
+        		voieActu = 1 ; //
         	
         	} else {
-        		if(Parametres.debug) System.err.println("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
+        		if(Parametres.debug) logger.debug("ROUTE "+this.getID()+"		: 	Probleme sur l'identite du carrefour");
         	}
         	
         	// suppression du vehicule en fin de route     
         	lesVoies[voieActu].supprVehicule(this.longueur*4-1);
            
-        	if(Parametres.debug) System.out.println("ROUTE "+this.getID()+"		:	Supression du vehicule");
+        	if(Parametres.debug) logger.debug("ROUTE "+this.getID()+"		:	Supression du vehicule");
         	
         	// Appel � methode graphique
         	elementGraphique.supprimerVehicule(1-voieActu);
@@ -673,7 +694,7 @@ public class RouteD extends Thread{
         Object objet = vectorMsg.elementAt(1);
          
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatCarrefour")){
-        	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
+        	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
         
         
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatVehicule") {
@@ -681,7 +702,7 @@ public class RouteD extends Thread{
         	// RECUPERER LES INFOS SUR LA VOITURE 
             voiture = (EtatVehicule) vectorMsg.elementAt(1);
             voieActu = voiture.getVoie();
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID()+" sur voie "+voieActu);
+            if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID()+" sur voie "+voieActu);
             
             // MISE A JOUR POSITION VEHICULE 
             // axe horizontale = 0 et axe verticale = 1  
@@ -706,9 +727,9 @@ public class RouteD extends Thread{
                 	
                 	// mettre a jour sa position
                 	voiture.setIndex(voiture.getPos()-1);
-                	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Index de la voiture "+voiture.getID()+" apres avancer: " + voiture.getIndex());
+                	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Index de la voiture "+voiture.getID()+" apres avancer: " + voiture.getIndex());
                 	if(!lesVoies[voieActu].positionnerVehicule(voiture.getIndex(), voiture)){
-                		if(Parametres.debug) System.err.println("ROUTE "+getID()+"	: 	Le vehicule "+voiture.getID()+"n'a pas pu etre positionne");
+                		if(Parametres.debug) logger.error("ROUTE "+getID()+"	: 	Le vehicule "+voiture.getID()+"n'a pas pu etre positionne");
                 	}	
                 	etatRouteActu.setEtatVehiculeCourant(voiture);
             
@@ -716,9 +737,9 @@ public class RouteD extends Thread{
             
             	voiture.setIndex(4*longueur-1);
             	voiture.setPos(longueur*4);
-            	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Position de la voiture"+voiture.getID()+": "+voiture.getPos());
+            	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Position de la voiture"+voiture.getID()+": "+voiture.getPos());
             	if(!lesVoies[voieActu].positionnerVehicule(voiture.getIndex(), voiture)){
-            		if(Parametres.debug) System.err.println("ROUTE "+getID()+"	: 	Le vehicule "+voiture.getID()+"n'a pas pu etre positionne");
+            		if(Parametres.debug) logger.error("ROUTE "+getID()+"	: 	Le vehicule "+voiture.getID()+"n'a pas pu etre positionne");
             	}	
             	etatRouteActu.setEtatVehiculeCourant(voiture);
             	
@@ -728,14 +749,14 @@ public class RouteD extends Thread{
             // Mettre a jour les extremites pour liberer ou non l'entree sur une voie
             if (voieActu == 0 && lesVoies[voieActu].recupVehicule(0) == null) extremite1 = 0; // l'entree fin de route est liberee
             if (voieActu == 1 && lesVoies[voieActu].recupVehicule(0) == null) extremite0 = 0; // l'entree debut de route est liberee
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Extremite 0 est :"+ extremite0); 
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Extremite 1 est :"+ extremite1);
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Extremite 0 est :"+ extremite0); 
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Extremite 1 est :"+ extremite1);
     	
             
             // ANALYSE DES VOITURES AUTOUR DU VEHICULE 
             etatRouteActu.setEtatVehiculeSuiv(lesVoies[voieActu].vehiculeSuivant(voiture.getIndex()));
             
-            if (etatRouteActu.getEtatVehicSuiv() != null) if(Parametres.debug) System.out.println("ROUTE "+this.identite+" 	:	il y a qqun devant");
+            if (etatRouteActu.getEtatVehicSuiv() != null) if(Parametres.debug) logger.debug("ROUTE "+this.identite+" 	:	il y a qqun devant");
     	
             if (voiture.getPos() >= (this.longueur*4)){
             	// on est en fin de route
@@ -764,7 +785,7 @@ public class RouteD extends Thread{
             
             } else {
             	// on lui dit de s'arreter : a verifier si d'autres cas possibles
-            	if(Parametres.debug) System.out.println("ROUTE "+this.getID()+"		: 	Demande l'arret a la voiture "+voiture.getID());
+            	if(Parametres.debug) logger.debug("ROUTE "+this.getID()+"		: 	Demande l'arret a la voiture "+voiture.getID());
             	messageAEnvoyer = new Message(6,etatRouteActu);
             }
     	
@@ -772,11 +793,11 @@ public class RouteD extends Thread{
             elementGraphique.deplacerVehicule(lesVoies[voieActu].rang(voiture.getIndex()), 1-voieActu, voiture.getPos()/2);
             
             // ENVOIE DU MESSAGE 
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Envoie du message "+ (String)(messageAEnvoyer.getMessage().get(0)));
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Envoie du message "+ (String)(messageAEnvoyer.getMessage().get(0)));
             envoyerMessageVoiture(messageAEnvoyer, voiture.getID());
     	
             // affichage graphique: il faut avancer 
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Rang voiture:"+ lesVoies[voiture.getVoie()].rang(voiture.getIndex()));
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Rang voiture:"+ lesVoies[voiture.getVoie()].rang(voiture.getIndex()));
 
         }
     }
@@ -798,7 +819,7 @@ public class RouteD extends Thread{
         Object objet = vectorMsg.elementAt(1);
          
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatCarrefour")){
-        	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
+        	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
         
             
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatVehicule") {
@@ -831,7 +852,7 @@ public class RouteD extends Thread{
         	else if(etatRouteActu.getEtatVehicSuiv() == null){
         		// on est en tete sur la route
         		voiture.setEtatActuel(1); // en train d'avancer 
-        		if(Parametres.debug) System.out.println("ROUTE "+this.identite+" 	:	voiture sur voie "+voiture.getVoie());
+        		if(Parametres.debug) logger.debug("ROUTE "+this.identite+" 	:	voiture sur voie "+voiture.getVoie());
         		etatRouteActu.setEtatVehiculeCourant(voiture);
         		messageAEnvoyer = new Message(0,etatRouteActu);
         	}
@@ -847,7 +868,7 @@ public class RouteD extends Thread{
         	}
         	
         	// on envoie le message 
-        	if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		: 	Envoie du "+(String)messageAEnvoyer.getMessage().elementAt(0)+" pour voiture "+ voiture.getID());
+        	if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		: 	Envoie du "+(String)messageAEnvoyer.getMessage().elementAt(0)+" pour voiture "+ voiture.getID());
         	envoyerMessageVoiture(messageAEnvoyer, voiture.getID()); 
 
         }    	
@@ -871,17 +892,17 @@ public class RouteD extends Thread{
         Object objet = vectorMsg.elementAt(1);
          
         if (objet.getClass().getName() == ("AgentsRoutiers.EtatCarrefour")){
-        	if(Parametres.debug) System.err.println("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
+        	if(Parametres.debug) logger.error("ROUTE "+this.identite+"		:	Erreur, l'objet recuperee n'est pas reconnu pour ce comportement");
             
         } else if (objet.getClass().getName() == "AgentsRoutiers.EtatVehicule") {
 
         	// RECUPERER INFOS SUR LA VOITURE
             voiture = (EtatVehicule) vectorMsg.elementAt(1);
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID());
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	>> Position de la voiture "+ voiture.getID()+ " : " + voiture.getPos());
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	Recuperation de l'EtatVoiture d'identite  " + voiture.getID());
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	>> Position de la voiture "+ voiture.getID()+ " : " + voiture.getPos());
             
             voieActu = voiture.getVoie();
-            if(Parametres.debug) System.out.println("ROUTE "+this.identite+"		:	>> Voie de la voiture "+ voiture.getID()+ " : " + voiture.getVoie());
+            if(Parametres.debug) logger.debug("ROUTE "+this.identite+"		:	>> Voie de la voiture "+ voiture.getID()+ " : " + voiture.getVoie());
         	
         	int index = voiture.getIndex(); 
         	lesVoies[voieActu].supprVehicule(index);

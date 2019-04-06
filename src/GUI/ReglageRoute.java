@@ -29,7 +29,6 @@ public class ReglageRoute extends javax.swing.JFrame {
 	
 	private ElementRoute laRoute;
 
-
 	
 	public ReglageRoute(ElementRoute route) {
 		super();

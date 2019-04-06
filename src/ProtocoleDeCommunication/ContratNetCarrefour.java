@@ -17,7 +17,6 @@ import jade.proto.ContractNetResponder;
 * 
 * 
 */
-
 public class ContratNetCarrefour extends ContractNetResponder{
     GestMsgVoiture gestMsgVoiture=null;
     GestMsgRoute gestMsgRoute=null;

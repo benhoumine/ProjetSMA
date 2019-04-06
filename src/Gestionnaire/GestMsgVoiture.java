@@ -7,7 +7,6 @@ import GuiSimuTrafic.Parametres;
 *
 * @author BENHOUMINE Abdelkhalek & BANE Mamadou
 * 
-* 
 */
 public class GestMsgVoiture {
 	

@@ -1,12 +1,16 @@
 package GuiSimuTrafic;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import GUI.*;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,6 +26,8 @@ public class SimuTrafic extends JFrame {
 
   private FlowLayout gestionPrincipal = null;
   private JPanel conteneurPrincipal = null ;
+  JMenu information ,Aide; 
+  JMenuItem About , help ; 
   private SplashScreen leSplash;
   private JMenuBar menu;
   protected int largeurFen = 800 ;
@@ -31,9 +37,29 @@ public class SimuTrafic extends JFrame {
 
     super("PROJET SYSTEME MULTI-AGENTS BENHOUMINE/Bane - ISIMA F2");
     this.menu  = new JMenuBar();
-    menu.add(new JMenu("Information"));
-    menu.add(new JMenu("Aide"));
+    //Information Menu
+    information = new JMenu("Information");
+    menu.add(information);
+    Aide = new JMenu("Aide");
+    About  = new JMenuItem("About");
+    help = new JMenuItem("help");
+    Aide.add(About);
+    Aide.add(help);
+    menu.add(Aide);
     this.setJMenuBar(menu);
+    
+    //Action Listener Pour Le menu
+   help.addActionListener(new ActionListener() {
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		new JOptionPane().showMessageDialog(null, "Cette Application est developpé par BENHOUMINE Abdelkhalek et mamado bane"
+    			+ " Dans le Cadre du projet De SMA (ISIMA) Sous l'encadrement Du Mr David HILL\n"
+    			+ " Cette application sera disponible sur le git \n"
+    			+ " Le nom du groupe doit etre mentionner d'apres chaque utilisation de cette application", "Attention", JOptionPane.INFORMATION_MESSAGE);
+	}
+   });
+    
     leSplash = new SplashScreen();
     leSplash.avancerProgress("Chargement de l'environnement...");
     this.setBackground(Parametres.couleurFond);
@@ -73,17 +99,17 @@ public class SimuTrafic extends JFrame {
    conteneurPrincipal.setLayout(gestionPrincipal);
    leSplash.avancerProgress("Mise en place des comportements...");
    // ASSEMBLAGE DES ELEMENTS
-    boites[0].add(maBarreOutils);
-    boites[1].add(Box.createVerticalGlue());
+   boites[0].add(Box.createVerticalGlue());
+    boites[1].add(maBarreOutils);
     //boites[1].add(maBarreTitre);
     conteneurPrincipal.add(boites[0]) ;
     conteneurPrincipal.add(boites[1]) ;
     conteneurPrincipal.add(boites[2]) ;
 
 
-    boites[1].add(Box.createVerticalGlue());
-    boites[1].setPreferredSize(new Dimension(600,550));
-    boites[1].add(reseauRoutier);
+    boites[0].add(Box.createVerticalGlue());
+    boites[0].setPreferredSize(new Dimension(800,550));
+    boites[0].add(reseauRoutier);
  //   boite[2].add(maBarreSimu);
 
     setContentPane(conteneurPrincipal);
@@ -102,6 +128,7 @@ public class SimuTrafic extends JFrame {
 
   		
   		SimuTrafic monSimuRoutier = new SimuTrafic() ;
+  		//monSimuRoutier.show();
   }
 
 }

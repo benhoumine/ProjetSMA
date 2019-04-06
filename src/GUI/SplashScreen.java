@@ -1,9 +1,6 @@
 package GUI;
 
 import java.awt.Color;
-
-
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,13 +12,19 @@ import GuiSimuTrafic.Parametres;
 /**
 *
 * @author BENHOUMINE Abdelkhalek & BANE Mamadou
+* <p> le point de démarrage du projet </p>
+* <p>Cette classe se charge pour dessiner l'image de chargement ainsi la durée avant dessiner les outils qu'on aura besoin
 * 
 * 
 */
 public class SplashScreen extends JFrame {
     
-	JProgressBar progress; // pour creer une barre de chargement
+	JProgressBar progress; 
 	JLabel label;
+    
+	JPanel boite;
+	ImageIcon image;
+	JLabel label_image; 
 	
 	public SplashScreen() {
 		super();
@@ -31,31 +34,16 @@ public class SplashScreen extends JFrame {
         setUndecorated( true );
         setFocusable( false );
         setEnabled( false );
-        
-		JPanel boite;
-		ImageIcon image; // pour stocker notre image
-		JLabel label_image; // pour stocker l'image dans une �tiquette
-		
-		
-		int num_progress = 0; // compteur de boucle pour le chargement
-
-    // 	definition d'une boite pour mettre le logo
 		boite = new JPanel();
-		boite.setBackground(Color.red);
+		boite.setBackground(Color.green);
 		getContentPane().add(boite);
-
-    // 	on place une image dans un label que l'on place dans notre boite
-		image = new ImageIcon( SplashScreen.class.getResource(Parametres.imagepath + "logo.jpg")); // recuperation de l'image
+		image = new ImageIcon( SplashScreen.class.getResource(Parametres.imagepath + "logo.jpg"));
 		label_image = new JLabel(image); //creation d'une etiquette
 		boite.add(label_image);
-				
-		label = new JLabel("Initialisation...");
+		label = new JLabel("Initialisation ...");
 		boite.add(label);
-		
-    // barre de progression
-		progress = new JProgressBar(0, 2500); // creation de l'objet
-		progress.setValue(0);
-		progress.setStringPainted(false);
+		progress = new JProgressBar();
+		progresser(progress);
 		boite.add(progress);
 		setVisible(true);
 		
@@ -66,6 +54,13 @@ public class SplashScreen extends JFrame {
 		label.setText(avancement);
 	}
 	
+	
+	public  JProgressBar progresser(JProgressBar progress) {
+		progress = new JProgressBar(0, 2500); // creation de l'objet
+		progress.setValue(0);
+		progress.setStringPainted(false);
+		return progress;
+	}
 	
 
 }

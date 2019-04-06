@@ -24,10 +24,9 @@ public class BarreTitre extends JPanel{
   /**
    * Action exécuté lorsque l'on clique sur le bouton "simuler/créer"
    */
-
   public ActionListener simulerListener = new ActionListener(){
     public void actionPerformed(ActionEvent e) {
-      etatVillage.setText("Cr?erVillage");
+      etatVillage.setText("CréerVillage");
       repaint();      
       leVillage = new ElementVillage(reseau);
 	  leVillage.genererStructureSimulation();

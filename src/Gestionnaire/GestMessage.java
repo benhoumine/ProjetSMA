@@ -15,12 +15,9 @@ public class GestMessage {
 
     private int capaciteVoiture ;
     private ArrayList listeMsgVoiture ;
-    
     private int nbTotalRoutes ;
     private LinkedList fileAttenteMsgRoute[];
-
     private int nbTotalCarrefour ;
-
 
     public GestMessage(int capaciteVehic, int nbCarrefour, int nbRoutes) {
 
@@ -99,9 +96,6 @@ public class GestMessage {
     		}
     	}
     }
-
-
-
     /*-----------------------------------------------------------------------
       GESTION DES FILES D'ATTENTE POUR LES MESSAGES A DESTINATION D'UNE ROUTE
       -----------------------------------------------------------------------*/
